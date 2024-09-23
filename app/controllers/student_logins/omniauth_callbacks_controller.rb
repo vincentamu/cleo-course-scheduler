@@ -9,7 +9,8 @@ module StudentLogins
         sign_out_all_scopes
         flash[:success] = t 'devise.omniauth_callbacks.success', kind: 'Google'
         
-        student = student_login.student
+        # Check if the student exists by email
+        student = Student.find_by(email: student_login.email)
 
         if student.present?
           if student.uin.blank?
