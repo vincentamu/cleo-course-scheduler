@@ -5,13 +5,7 @@ class StudentLogin < ApplicationRecord
 
   validates :uid, presence: true
 
-  # Add association to Student
-  belongs_to :student, optional: true # optional: true if student might not be present initially
-
-  # Define the method to create or find a student
   def self.from_google(email:, full_name:, uid:, avatar_url:)
-    first_name, last_name = full_name.split(' ', 2) 
-    student_login = create_with(full_name:, avatar_url:).find_or_create_by!(email:)
-    student_login
+    create_with(uid:, full_name:, avatar_url:).find_or_create_by!(email:)
   end
 end
