@@ -4,11 +4,13 @@ module StudentLogins
   class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     def google_oauth2
       student_login = StudentLogin.from_google(**from_google_params)
+
       if student_login.present?
         sign_out_all_scopes
         flash[:success] = t 'devise.omniauth_callbacks.success', kind: 'Google'
         
         student = student_login.student
+
         if student.present?
           if student.uin.blank?
             # Redirect to the form to complete profile if `uin` is missing
