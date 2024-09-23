@@ -17,7 +17,7 @@ module StudentLogins
         if student.present?
           sign_in_and_redirect student_login, event: :authentication
         else
-          redirect_to new_student_path
+          sign_in_and_redirect new_student_path, event: :authentication
         end
 
 =begin
