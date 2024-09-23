@@ -11,6 +11,9 @@ module StudentLogins
         
         # Check if the student exists by email
         student = Student.find_by(email: student_login.email)
+        logger.debug "Auth Info: #{auth.info.inspect}"
+        logger.debug "Email: #{from_google_params[:email]}"
+
         if student.present?
           sign_in_and_redirect student_login, event: :authentication
         else
