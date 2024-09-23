@@ -14,6 +14,7 @@ module StudentLogins
         else
           # If all required info is available, proceed to sign in
           sign_in_and_redirect student_login, event: :authentication
+        end
 
 
       else
