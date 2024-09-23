@@ -13,7 +13,7 @@ module StudentLogins
         student = Student.find_by(email: student_login.email)
 
         if student.present?
-          if student.uin.blank?
+          if student.email.blank?
             # Redirect to the form to complete profile if `uin` is missing
             redirect_to new_student_path
           else
