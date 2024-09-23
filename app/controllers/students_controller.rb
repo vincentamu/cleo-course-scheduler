@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  skip_before_action :student_login!, only: [:new, :create]
+  skip_before_action :authenticate_student_login!, only: [:new, :create]
   before_action :set_student, only: %i[show edit update destroy]
 
   def index
