@@ -10,7 +10,7 @@ module StudentLogins
         
         student = student_login.student
         if student.present?
-          if student.email.blank?
+          if student.uin.blank?
             # Redirect to the form to complete profile if `uin` is missing
             redirect_to new_student_path
           else
