@@ -4,19 +4,10 @@ module StudentLogins
   class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     def google_oauth2
       student_login = StudentLogin.from_google(**from_google_params)
-      
       if student_login.present?
         sign_out_all_scopes
         flash[:success] = t 'devise.omniauth_callbacks.success', kind: 'Google'
-
-        # Check if student information is complete
-        if student_login.student.uin.blank?
-          # Redirect to the form to complete profile if `uin` is missing
-          redirect_to new_student_path
-        else
-          # If all required info is available, proceed to sign in
-          sign_in_and_redirect student_login, event: :authentication
-        end
+        sign_in_and_redirect student_login, event: :authentication
       else
         flash[:alert] = t 'devise.omniauth_callbacks.failure', kind: 'Google',
                                                                reason: "#{auth.info.email} is not authorized."
