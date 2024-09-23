@@ -11,7 +11,13 @@ module StudentLogins
         
         # Check if the student exists by email
         student = Student.find_by(email: student_login.email)
+        if student.present?
+          sign_in_and_redirect student_login, event: :authentication
+        else
+          redirect_to new_student_path
+        end
 
+=begin
         if student.present?
           if student.email.blank?
             # Redirect to the form to complete profile if `uin` is missing
@@ -28,7 +34,9 @@ module StudentLogins
         flash[:alert] = t 'devise.omniauth_callbacks.failure', kind: 'Google',
                                                                  reason: "#{auth.info.email} is not authorized."
         redirect_to new_student_login_session_path
+=end
       end
+
     end
 
     protected
