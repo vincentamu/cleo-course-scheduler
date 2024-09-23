@@ -17,6 +17,7 @@ class StudentsController < ApplicationController
     if @student.save
       redirect_to students_path, notice: 'Student added successfully.'
     else
+      Rails.logger.debug { "Failed to create student: #{@student.errors.full_messages}" }
       render :new
     end
   end
